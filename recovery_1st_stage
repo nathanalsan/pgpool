@@ -13,6 +13,7 @@ PRIMARY_NODE_HOST="$7"
 
 PGHOME=/usr/local/pgsql/16
 ARCHIVEDIR=/var/lib/pgsql/archivedir
+PGPASS_PATH=/var/local/pgsql
 REPLUSER=repl
 REPL_SLOT_NAME=$(echo ${DEST_NODE_HOST,,} | tr -- -. _)
 POSTGRESQL_STARTUP_USER=postgres
@@ -64,7 +65,7 @@ primary_slot_name = '${REPL_SLOT_NAME}'
 EOT
     else
     cat > ${RECOVERYCONF} << EOT
-primary_conninfo = 'host=${PRIMARY_NODE_HOST} port=${PRIMARY_NODE_PORT} user=${REPLUSER} application_name=${DEST_NODE_HOST} passfile=''/var/lib/pgsql/.pgpass'''
+primary_conninfo = 'host=${PRIMARY_NODE_HOST} port=${PRIMARY_NODE_PORT} user=${REPLUSER} application_name=${DEST_NODE_HOST} passfile=''${PGPASS_PATH}/.pgpass'''
 recovery_target_timeline = 'latest'
 primary_slot_name = '${REPL_SLOT_NAME}'
 EOT
