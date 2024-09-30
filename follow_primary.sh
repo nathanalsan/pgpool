@@ -32,6 +32,7 @@ NEW_PRIMARY_NODE_PGDATA="${10}"
 
 PGHOME=/usr/local/pgsql/16
 ARCHIVEDIR=/var/lib/pgsql/archivedir
+PGPASS_PATH=/var/local/pgsql
 REPLUSER=repl
 PCP_USER=pgpool
 PGPOOL_PATH=/usr/bin
@@ -93,7 +94,7 @@ ssh -T ${SSH_OPTIONS} ${POSTGRESQL_STARTUP_USER}@${NODE_HOST} "
     [ -d \"${NODE_PGDATA}\" ] && rm -rf ${NODE_PGDATA}/pg_replslot/*
 
     cat > ${RECOVERYCONF} << EOT
-primary_conninfo = 'host=${NEW_PRIMARY_NODE_HOST} port=${NEW_PRIMARY_NODE_PORT} user=${REPLUSER} application_name=${NODE_HOST} passfile=''/var/lib/pgsql/.pgpass'''
+primary_conninfo = 'host=${NEW_PRIMARY_NODE_HOST} port=${NEW_PRIMARY_NODE_PORT} user=${REPLUSER} application_name=${NODE_HOST} passfile=''${PGPASS_PATH}/.pgpass'''
 recovery_target_timeline = 'latest'
 primary_slot_name = '${REPL_SLOT_NAME}'
 EOT
