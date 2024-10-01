@@ -35,7 +35,7 @@ ARCHIVEDIR=/var/lib/pgsql/archivedir
 PGPASS_PATH=/var/local/pgsql
 REPLUSER=repl
 PCP_USER=pgpool
-PGPOOL_PATH=/usr/bin
+PGPOOL_PATH=PGPOOL_PATH=${PGHOME}/bin
 PCP_PORT=9898
 REPL_SLOT_NAME=$(echo ${NODE_HOST,,} | tr -- -. _)
 POSTGRESQL_STARTUP_USER=postgres
